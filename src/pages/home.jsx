@@ -1,7 +1,12 @@
+import Carrossel from '../components/carrossel'
+import MenuBase from '../components/menu'
+
+
+
+
 export default function Home(){
     return(
-        <>
-        <h1>Teste</h1>
-        </>
+        <div>
+        </div>
     )
 }
