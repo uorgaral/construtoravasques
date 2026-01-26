@@ -1,8 +1,7 @@
 import supabase from '../utils/supabase_client';
 import { useState, useEffect } from 'react';
 
-
-export default function Catalogo() {
+export default function AdicionarObra() {
   const [listaObra, setListaObra] = useState([]);
   const [titulo, setTitulo] = useState("");
   const [desc, setDesc] = useState("");

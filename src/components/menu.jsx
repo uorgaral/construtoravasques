@@ -133,6 +133,7 @@ export default function Menu() {
               <NavS>
                 <NavLinkS to="/">PÁGINA INCIAL </NavLinkS>
                 <NavLinkS to="/catalogo">CATÁLOGO</NavLinkS>
+                <NavLinkS to="/admin">ADMINISTRADOR</NavLinkS>
               </NavS>
             </ContainerS>
         </NavbarS>
