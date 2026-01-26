@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import AppRoutes from '../routes';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 //imagens
 import LogoBranco from '../assets/LogoBranco.png'
@@ -36,21 +37,17 @@ const LogoImg = styled.img`
   transform: ${({ $hover }) => ($hover ? 'scale(1.08)' : 'scale(1)')};
 `;
 
-const NavLinkS = styled(Nav.Link)`
+const NavLinkS = styled(Link)`
   font-family: "Bakbak One", sans-serif;
   font-size: 20px;
   color: #F7F7F7;
-  text-shadow: 5px 4px 4px rgba(0, 0, 0, 0.31);
+  text-decoration: none;
+  transition: all 0.2s ease;
 
-  &:link{
+  &:hover {
     color: #B6222A;
-  };
-
-  &:hover{
-    color: #B6222A;
-    transition: 0.2 ease;
     transform: scale(1.08);
-  };
+  }
 `;
 
 const ContainerS = styled(Container)`
@@ -125,7 +122,8 @@ export default function Menu() {
             <ContainerS>
 
               <Navbar.Brand 
-              href="/"
+              as={Link}
+              to="/"
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
               >
@@ -133,8 +131,8 @@ export default function Menu() {
               </Navbar.Brand>
 
               <NavS>
-                <NavLinkS href="/">PÁGINA INCIAL </NavLinkS>
-                <NavLinkS href="/catalogo">CATÁLOGO</NavLinkS>
+                <NavLinkS to="/">PÁGINA INCIAL </NavLinkS>
+                <NavLinkS to="/catalogo">CATÁLOGO</NavLinkS>
               </NavS>
             </ContainerS>
         </NavbarS>
