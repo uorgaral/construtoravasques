@@ -1,6 +1,20 @@
 import supabase from '../utils/supabase_client';
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Container } from 'react-bootstrap';
 
+
+const ContainerS = styled(Container)`
+    && {
+        min-height: 100vh; 
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 100px;
+        color: white;
+    }
+`
 
 export default function AdicionarObra() {
   const [listaObra, setListaObra] = useState([]);
@@ -156,9 +170,9 @@ const { error } = await supabase
 };
 
   return (
-    <>
+    <ContainerS fluid>
+      <>
       <h1>Adicionar Obra</h1>
-        <>
         <input type="text" value={titulo} placeholder="Titulo:" onChange={(e) => setTitulo(e.target.value)}/>
         <input type="text" value={desc} placeholder="Descrição:" onChange={(e) => setDesc(e.target.value)}/>
         <input type="text" value={categoria} placeholder="Categoria:" onChange={(e) => setCategoria(e.target.value)}/>
@@ -278,7 +292,7 @@ const { error } = await supabase
         </li>
       ))}
     </ul>
-        </>
-        </>
+    </>
+    </ContainerS>
   )
 }
