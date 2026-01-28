@@ -6,9 +6,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 //imagens
-import LogoBranco from '../assets/LogoBranco.png'
-import LogoVermelho from '../assets/LogoVermelho.png'
-import LogoGrande from '../assets/LogoGrande.png'
+import LogoBranco from '../assets/Logos/LogoBranco.png'
+import LogoVermelho from '../assets/Logos/LogoVermelho.png'
+import LogoGrande from '../assets/Logos/LogoGrande.png'
 
 //imports do bootstrap
 import Container from 'react-bootstrap/Container';
@@ -20,7 +20,9 @@ import { DropdownDivider } from 'react-bootstrap';
 //Estilos Desktop
 const NavbarS  = styled(Navbar)`
   background-color: rgba(235, 235, 235, 0.1);
-  width: 100vw;
+  width: 100%;
+  padding-inline: 40px;
+  height: 70px;
 
   @media (max-width: 768px){
     display: none;
@@ -31,10 +33,10 @@ const NavbarS  = styled(Navbar)`
 const LogoImg = styled.img`
   width: 36px;
   height: 36px;
-  transition: 0.2 ease;
+  transition: 0.2s ease;
 
   opacity: ${({ $hover }) => ($hover ? 0.85 : 1)};
-  transform: ${({ $hover }) => ($hover ? 'scale(1.08)' : 'scale(1)')};
+  transform: ${({ $hover }) => ($hover ? 'scale(1.10)' : 'scale(1)')};
 `;
 
 const NavLinkS = styled(Link)`
@@ -119,7 +121,7 @@ export default function Menu() {
   return (
     <>
       <NavbarS fixed="top">
-            <ContainerS>
+            <ContainerS fluid>
 
               <Navbar.Brand 
               as={Link}

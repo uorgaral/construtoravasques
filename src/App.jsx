@@ -4,15 +4,16 @@ import './App.css'
 
 
 import AppRoutes from './routes'
-import Catalogo from "./pages/add-obra"
 import Menu from './components/menu'
-
+import { Container } from 'react-bootstrap';
+import styled from 'styled-components';
 
 export default function App(){
   return(
     <BrowserRouter>
-      <Menu/>
-      <AppRoutes/>
+    <Menu/>
+        <AppRoutes/>
     </BrowserRouter>
   )
 }
+
