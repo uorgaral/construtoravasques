@@ -8,6 +8,11 @@ import Menu from './components/menu'
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
+
+//Fontes
+// Bakbak One
+// Cold Warm
+
 export default function App(){
   return(
     <BrowserRouter>

@@ -1,17 +1,22 @@
 import { Container } from 'react-bootstrap'
-import Carrossel from '../components/carrossel'
 import styled from 'styled-components'
 
 
+import Carrossel from '../components/carrossel'
+import Destaques from '../components/destaques.jsx'
+
 const ContainerS = styled(Container)`
     && {
-        height: 100vh;
+        min-height: 100vh;
+        height: auto,
         max-width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
         top: 0;
         padding: 0;
+
     }
 `
 
@@ -19,6 +24,7 @@ export default function Home(){
     return(
         <ContainerS fluid>
             <Carrossel/>
+            <Destaques/>
         </ContainerS>
     )
 }

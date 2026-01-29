@@ -18,6 +18,8 @@ const ContainerS = styled(Container)`
 
 export default function AdicionarObra() {
   const [listaObra, setListaObra] = useState([]);
+  const [listaCateg, setListaCateg] = useState([]);
+
   const [titulo, setTitulo] = useState("");
   const [desc, setDesc] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -27,6 +29,42 @@ export default function AdicionarObra() {
   const [previewUrl, setPreviewUrl] = useState(null);
 
 
+//BUSCAR DO BD
+const fetchCategorias = async () =>{
+  const {data, error} = await supabase 
+  .from("Categorias")
+  .select("nome_categoria")
+  if (error) {
+    console.log("Erro ao buscar categorias.", error)
+    alert("Erro ao buscar categorias.")
+  } else {
+    setListaCateg(data.map(c => c.nome_categoria));
+    console.log(data)
+  }
+}
+
+useEffect(() => {
+  fetchCategorias();
+}, []);
+
+
+
+
+const fetchObras = async () => {
+    const {data, error} = await supabase
+    .from("ListaObras")
+    .select("*")
+    if (error) {
+      console.log("Erro ao buscar as obras.", error)
+      alert("Erro ao buscar as obras.")
+    } else {
+      setListaObra(data)
+    }
+  }
+
+  useEffect(() => {
+    fetchObras();
+  }, []);
 
 
 //CREATE
@@ -108,23 +146,6 @@ const uploadImagem = async (arquivoEspecifico = null, tituloEspecifico = null) =
 }
 
 
-  //READ
-  const fetchObras = async () => {
-    const {data, error} = await supabase
-    .from("ListaObras")
-    .select("*") //sem categorias selecionadas
-    if (error) {
-      console.log("Erro ao ler as obras.", error)
-    } else {
-      setListaObra(data)
-    }
-  }
-
-  useEffect(() => {
-    fetchObras();
-  }, []);
-
-
   //UPDATE
   const editarObra = async (id, titulo, desc, categoria, img_url) => {
   const { data, error } = await supabase
@@ -175,7 +196,16 @@ const { error } = await supabase
       <h1>Adicionar Obra</h1>
         <input type="text" value={titulo} placeholder="Titulo:" onChange={(e) => setTitulo(e.target.value)}/>
         <input type="text" value={desc} placeholder="Descrição:" onChange={(e) => setDesc(e.target.value)}/>
-        <input type="text" value={categoria} placeholder="Categoria:" onChange={(e) => setCategoria(e.target.value)}/>
+        
+        <select 
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}>
+
+          <option value="">Selecione uma Categoria...</option>
+            {listaCateg.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+        </select>
 
         <input 
           type="file" 
@@ -225,8 +255,9 @@ const { error } = await supabase
                     )
                   }
                 />
-                <input
-                  placeholder='Categoria:'
+
+                <select
+                  style={{ color: 'black', margin: '5px 0' }}
                   value={obra.categoria}
                   onChange={(e) =>
                     setListaObra((prev) =>
@@ -237,7 +268,13 @@ const { error } = await supabase
                       )
                     )
                   }
-                />
+                >
+                  <option value="">Selecione uma Categoria:</option>
+                  {listaCateg.map((cat) => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+
                 <input
                   type='file'
                   accept='image/*'
