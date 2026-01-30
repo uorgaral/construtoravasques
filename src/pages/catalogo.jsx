@@ -65,8 +65,8 @@ const fetchObras = async () => {
                 {listaObra.map((obra) => (
                     <Col key={obra.id} xs={12} md={6} lg={4} xl={3} className="d-flex justify-content-center">
                             <Card key={obra.id} style={{ width: '18rem' }}>
-                            <Card.Img src={obra.img_url}/>
                             <Card.Body>
+                              <Card.Img src={obra.img_url} />
                                 <Card.Title>{obra.titulo}</Card.Title>
                                 <Card.Text>
                                 {obra.desc}

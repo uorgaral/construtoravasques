@@ -72,6 +72,7 @@ export default function Destaques() {
                     <DirectionAwareHover key={item.id} imageUrl={item.img_url}>
                     <CardTitulo>{item.titulo}</CardTitulo>
                     <p className="font-normal text-sm">{item.desc}</p>
+                    <button>Ver mais..</button>
                 </DirectionAwareHover>
                 ))}
             </ContainerDest>

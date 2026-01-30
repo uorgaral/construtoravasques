@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 import Carrossel from '../components/carrossel'
 import Destaques from '../components/destaques.jsx'
+import Montagem from '../components/galeria-home.jsx'
+import Compromisso from '../components/compromisso.jsx'
 
 const ContainerS = styled(Container)`
     && {
@@ -25,6 +27,8 @@ export default function Home(){
         <ContainerS fluid>
             <Carrossel/>
             <Destaques/>
+            <Montagem/>
+            <Compromisso/>
         </ContainerS>
     )
 }
