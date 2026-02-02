@@ -9,7 +9,7 @@ import InteriorHugo from '../assets/ImagensHomeGaleria/InteriorHugo.jpeg'
 import InteriorExterno from '../assets/ImagensHomeGaleria/InteriorExterno.png'
 import FachadaHugo from '../assets/ImagensHomeGaleria/FachadaHugo.jpeg'
 import Fachada from '../assets/ImagensHomeGaleria/Fachada.png'
-import Fachada3 from '../assets/ImagensHomeGaleria/Fachada3.jpg'
+import Fachada3 from '../assets/ImagensHomeGaleria/Fachada3.JPG'
 import FachadaComercial from '../assets/ImagensHomeGaleria/FachadaComercial.png'
 
 
