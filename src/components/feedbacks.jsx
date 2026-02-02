@@ -1,26 +1,21 @@
+import React from "react";
 import styled from "styled-components";
 import { Container } from "react-bootstrap";
 
-import iconeChat from '../assets/Logos/bubble-chat 1.png';
-import iconeFamilia from '../assets/Logos/familia 1 .png';
-
+import iconeFamilia from '../assets/Logos/familia 1.png'
+import iconeChat from '../assets/Logos/bubble-chat 1.png'
 
 const ContainerS = styled(Container)`
     && {
-        height: auto;
-        min-height: 600px;
+        min-height: 500px;
         width: 100%;
         display: flex;
-        align-items: flex-start; 
+        align-items: center;
         justify-content: center;
-        flex-direction: row;
-        gap: 50px; 
-        padding: 40px 0;
-
-        @media (max-width: 768px) {
-            flex-direction: column;
-            align-items: center;
-        }
+        flex-direction: column;
+        padding: 60px 20px;
+        background-color: #6D070E;
+        gap: 40px;
     }
 `;
 
@@ -28,30 +23,81 @@ const ItemFeedback = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    flex: 1;
+    flex-direction: row;
+    text-align: start;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
 
-    h1 {
-        font-size: 1.2rem;
-        margin-top: 20px;
+    img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
     }
 
-    p {
-        font-size: 1rem;
+    @media (max-width: 768px) {
+        flex-direction: column; 
+        text-align: center; 
+        
+        div {
+            align-items: center !important; 
+        }
     }
+`;
+
+const Titulo = styled.h2`
+  font-family: "Cold Warm", sans-serif;
+  font-size: 2rem; 
+  color: #f7f7f7;    
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const TitTexto = styled.h3`
+  font-family: "Cold Warm", sans-serif;
+  font-size: 20px; 
+  color: #f7f7f7;
+  letter-spacing: 2px;
+  font-weight: 300;
+`;
+
+const Parag = styled.p`
+  font-family: "Coolvetica", sans-serif;
+  font-size: 13px; 
+  color: #f7f7f7;
+  letter-spacing: 2px;
 `;
 
 export default function Feedbacks(){
     return(
-        <ContainerS>
-            <div>
+        <ContainerS fluid>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "center", gap: 20}}>
                 <img src={iconeChat}/>
+                <Titulo>Feedbacks</Titulo>
             </div>
-            <ItemFeedback>
+            <ItemFeedback>  
                 <img src={iconeFamilia}/>
-                <h1>OBRA SEM DOR DE CABEÇA</h1>
-                <p>Obra com planejamento e acompanhamento diário, sem falta de materiais, mão de obra qualificada e com entrega no prazo previsto.</p>
+                <div style={{display: "flex", flexDirection: "column", textAlign: "start", gap:5, width: 900}}>
+                    <TitTexto>João José e Família</TitTexto>
+                    <Parag>"Boa tarde!Eu, e meus familiares, estamos a agradecer a Vasques Construtora, pela construção da edícula.<br/>
+                        Todos, estamos felizes por mais esta vitória em nossas vidas.<br/>
+                        Agradecemos a Deus, pelo término da obra, sem incidente e acidente, o que para nós é motivo de muita alegria."</Parag>
+                </div>
+            </ItemFeedback>
+
+            <ItemFeedback>  
+                <img src={iconeFamilia}/>
+                <div style={{display: "flex", flexDirection: "column", textAlign: "start", gap:5, width: 900}}>
+                    <TitTexto>Miguel e Família</TitTexto>
+                    <Parag>"Obrigado, Vasques Construtora! <br/>
+                        E parabéns pela excelência no que vcs fazem, pela equipe fantástica e bem qualificada<br/>
+                        e por ser um diferencial na área! Deus os abençôe!!"</Parag>
+                </div>
             </ItemFeedback>
         </ContainerS>
     )

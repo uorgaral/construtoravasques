@@ -6,21 +6,16 @@ import Carrossel from '../components/carrossel'
 import Destaques from '../components/destaques.jsx'
 import Montagem from '../components/galeria-home.jsx'
 import Compromisso from '../components/compromisso.jsx'
+import Feedbacks from  '../components/feedbacks.jsx'
 
 const ContainerS = styled(Container)`
-    && {
-        min-height: 100vh;
-        height: auto,
-        max-width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        top: 0;
-        padding: 0;
+  && {
+    min-height: 100vh;
+    max-width: 100%;
+    padding: 0;
+  }
+`;
 
-    }
-`
 
 export default function Home(){
     return(
@@ -29,6 +24,7 @@ export default function Home(){
             <Destaques/>
             <Montagem/>
             <Compromisso/>
+            <Feedbacks/>
         </ContainerS>
     )
 }

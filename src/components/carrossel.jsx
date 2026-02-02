@@ -18,6 +18,10 @@ const CarrosselS = styled(Carousel)`
         width: 100vw !important;
         height: 100vh !important;
     }
+
+    @media (max-width: 768px){
+    display: none;
+  };
 `
 
 
