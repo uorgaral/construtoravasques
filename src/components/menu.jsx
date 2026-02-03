@@ -73,21 +73,37 @@ const DropdownS = styled(Dropdown)`
 `
 
 const DropdownBotaoS = styled(Dropdown.Toggle)`
-  padding: 16px;
+  padding: 12px;
   background-color: #9F111B;
-  border:none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
 
-  &:hover{
-  background-color: #6d070e;
+
+  &::after {
+    display: none !important;
   }
+
+  img {
+    width: 30px; 
+    height: auto;
+  }
+
+  &:hover {
+    background-color: #6d070e;
+  }
+
   &:focus, 
   &:focus-visible,
   &:active, 
-  &.show{
+  &.show {
     background-color: #6d070e !important;
     outline: none !important;
+    box-shadow: none !important;
   }
-`
+`;
 
 const DropdownItemS = styled(Dropdown.Item)`
   font-family: "Bakbak One", sans-serif;
@@ -142,7 +158,7 @@ export default function Menu() {
 
         <div style={{width: 100, position: 'fixed', top: 20, right: 10}}>
         <DropdownS>
-          <DropdownBotaoS id="dropdown-autoclose-true">
+          <DropdownBotaoS id="dropdown-autoclose-true" noCaret>
             <img src={LogoBranco}></img>
           </DropdownBotaoS>
 

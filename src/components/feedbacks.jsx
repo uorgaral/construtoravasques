@@ -68,7 +68,7 @@ const TitTexto = styled.h3`
 
 const Parag = styled.p`
   font-family: "Coolvetica", sans-serif;
-  font-size: 13px; 
+  font-size: 18px; 
   color: #f7f7f7;
   letter-spacing: 2px;
 `;
@@ -82,7 +82,7 @@ export default function Feedbacks(){
             </div>
             <ItemFeedback>  
                 <img src={iconeFamilia}/>
-                <div style={{display: "flex", flexDirection: "column", textAlign: "start", gap:5, width: 900}}>
+                <div style={{display: "flex", flexDirection: "column", textAlign: "start", gap:5, width: "100%", maxWidth: "900px"}}>
                     <TitTexto>João José e Família</TitTexto>
                     <Parag>"Boa tarde!Eu, e meus familiares, estamos a agradecer a Vasques Construtora, pela construção da edícula.<br/>
                         Todos, estamos felizes por mais esta vitória em nossas vidas.<br/>
@@ -92,7 +92,7 @@ export default function Feedbacks(){
 
             <ItemFeedback>  
                 <img src={iconeFamilia}/>
-                <div style={{display: "flex", flexDirection: "column", textAlign: "start", gap:5, width: 900}}>
+                <div style={{display: "flex", flexDirection: "column", textAlign: "start", gap:5, width: "100%", maxWidth: "900px"}}>
                     <TitTexto>Miguel e Família</TitTexto>
                     <Parag>"Obrigado, Vasques Construtora! <br/>
                         E parabéns pela excelência no que vcs fazem, pela equipe fantástica e bem qualificada<br/>

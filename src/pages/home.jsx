@@ -7,12 +7,19 @@ import Destaques from '../components/destaques.jsx'
 import Montagem from '../components/galeria-home.jsx'
 import Compromisso from '../components/compromisso.jsx'
 import Feedbacks from  '../components/feedbacks.jsx'
+import ImagemMobile from '../components/imagens-mobile.jsx'
 
 const ContainerS = styled(Container)`
   && {
     min-height: 100vh;
     max-width: 100%;
     padding: 0;
+  }
+
+  @media (max-width: 768px){
+    max-width: 100%;
+    height: auto;
+    overflow-x: none;
   }
 `;
 
@@ -23,6 +30,7 @@ export default function Home(){
             <Carrossel/>
             <Destaques/>
             <Montagem/>
+            <ImagemMobile/>
             <Compromisso/>
             <Feedbacks/>
         </ContainerS>
