@@ -37,7 +37,7 @@ const ContainerDest = styled(Container)`
 `
 
 const Titulo = styled.h2`
-  font-family: "Cold Warm", sans-serif;
+  font-family: "Coolvetica", sans-serif;
   font-size: 32px; 
   color: #6D070E;    
   margin-bottom: 30px; 

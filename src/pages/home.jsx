@@ -2,6 +2,7 @@ import { Container } from 'react-bootstrap'
 import styled from 'styled-components'
 
 
+
 import Carrossel from '../components/carrossel'
 import Destaques from '../components/destaques.jsx'
 import Montagem from '../components/galeria-home.jsx'

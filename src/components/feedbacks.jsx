@@ -46,7 +46,7 @@ const ItemFeedback = styled.div`
 `;
 
 const Titulo = styled.h2`
-  font-family: "Cold Warm", sans-serif;
+  font-family: "Coolvetica", sans-serif;
   font-size: 2rem; 
   color: #f7f7f7;    
   text-transform: uppercase;
@@ -59,7 +59,7 @@ const Titulo = styled.h2`
 `;
 
 const TitTexto = styled.h3`
-  font-family: "Cold Warm", sans-serif;
+  font-family: "Coolvetica", sans-serif;
   font-size: 20px; 
   color: #f7f7f7;
   letter-spacing: 2px;

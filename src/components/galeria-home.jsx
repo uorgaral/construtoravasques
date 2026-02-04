@@ -1,6 +1,7 @@
 import "react-photo-album/masonry.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 //fotos específicas:
 import Piscina from '../assets/ImagensHomeGaleria/Piscina.png'
 import MinhaCasaVida from '../assets/ImagensHomeGaleria/MinhaCasaVida.png'
@@ -43,8 +44,8 @@ const SectionWrapper = styled.section`
   };
 `;
 
-const Title = styled.h2`
-  font-family: "Cold Warm", sans-serif;
+const Titulo = styled.h2`
+  font-family: "Coolvetica", sans-serif;
   font-size: 32px; 
   color: #f7f7f7;    
   margin-bottom: 30px; 
@@ -53,7 +54,7 @@ const Title = styled.h2`
   font-weight: 300;
 `;
 
-const Gallery = styled.div`
+const Galeria = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr); 
   grid-auto-rows: 14vh;      
@@ -63,7 +64,7 @@ const Gallery = styled.div`
   margin: 0 auto;
 `;
 
-const Item = styled.div`
+const Imagens = styled.div`
   overflow: hidden;
   border-radius: 10px;
   grid-column: ${({ col }) => col};
@@ -74,32 +75,11 @@ const Item = styled.div`
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.2s ease;
     
     &:hover {
-      transform: scale(1.08); 
+      transform: scale(1.02); 
     }
-  }
-`;
-
-const Button = styled(Link)`
-  margin-top: 40px; 
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 12px 24px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  
-  &:hover { 
-    background: white; 
-    color: #2e313d; 
-    border-color: white;
   }
 `;
 
@@ -107,17 +87,17 @@ const Button = styled(Link)`
 export default function Montagem() {
   return (
     <SectionWrapper>
-      <Title>EXCELÊNCIA EM CADA PROJETO</Title>
+      <Titulo>EXCELÊNCIA EM CADA PROJETO</Titulo>
       
-      <Gallery>
+      <Galeria>
         {photos.map((img, index) => (
-          <Item key={index} col={img.col} row={img.row}>
+          <Imagens key={index} col={img.col} row={img.row}>
             <img src={img.src} alt={`Projeto ${index + 1}`} />
-          </Item>
+          </Imagens>
         ))}
-      </Gallery>
+      </Galeria>
 
-      <Button to="/catalogo">Catálogo Completo</Button>
+      <button><Link to="/catalogo">Catálogo Completo</Link></button>
     </SectionWrapper>
   );
 }

@@ -15,8 +15,8 @@ import styled from 'styled-components';
 
 export default function App(){
   return(
-    <BrowserRouter>
-    <Menu/>
+      <BrowserRouter>
+        <Menu/>
         <AppRoutes/>
     </BrowserRouter>
   )

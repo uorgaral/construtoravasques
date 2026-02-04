@@ -93,7 +93,7 @@ const ItemCompromisso = styled.div`
 
 const Titulo = styled.h2`
   && {
-    font-family: "Cold Warm", sans-serif;
+    font-family: "Coolvetica", sans-serif;
     font-size: 32px;
     color: #6D070E;
     text-transform: uppercase;

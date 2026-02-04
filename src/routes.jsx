@@ -13,8 +13,8 @@ const AppRoutes = () => {
       <Route path="/catalogo" element={<Catalogo/>}/>
       <Route path="/admin" element={<Login />}/>
       <Route path="/admin/dashboard" element={<Dashboard />}/>
-      <Route path="/admin/alterar_obra"/>
       <Route path="/admin/adicionar_obra" element={<AdicionarObra />} />
+      <Route path="/admin/alterar_obra"/>
     </Routes>
   );
 };

@@ -67,10 +67,15 @@ const NavS = styled(Nav)`
 
 //Estilos Mobile
 const DropdownS = styled(Dropdown)`
+  position: fixed; 
+  top: 20px;  
+  right: 20px;
+  z-index: 9999; 
+
   @media (min-width: 769px){
     display: none;
   };
-`
+`;
 
 const DropdownBotaoS = styled(Dropdown.Toggle)`
   padding: 12px;
@@ -80,6 +85,10 @@ const DropdownBotaoS = styled(Dropdown.Toggle)`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+  position: fixed;
+  top: 20px; 
+  right: 20px;
+  z-index: 9999;  
 
 
   &::after {
@@ -111,6 +120,7 @@ const DropdownItemS = styled(Dropdown.Item)`
   color: #9F111B;
   text-shadow: 5px 4px -4px rgba(0, 0, 0, 0.20);
   text-align: left;
+  z-index: 9999;
 
   &:hover{
   color: #6d070e;
@@ -125,9 +135,17 @@ const DropdownItemS = styled(Dropdown.Item)`
     background-color: #d6d4d4 !important; 
   };
 `
+
 const DropdownMenuS = styled(Dropdown.Menu)`
   padding: 10px;
-`
+  background-color: white !important;
+  border: none;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 10000 !important;
+  
+  right: 0 !important; 
+  left: auto !important;
+`;
 
 //Código
 export default function Menu() {
@@ -156,7 +174,6 @@ export default function Menu() {
             </ContainerS>
         </NavbarS>
 
-        <div style={{width: 100, position: 'fixed', top: 20, right: 10}}>
         <DropdownS>
           <DropdownBotaoS id="dropdown-autoclose-true" noCaret>
             <img src={LogoBranco}></img>
@@ -169,8 +186,6 @@ export default function Menu() {
             <DropdownItemS href="/admin">ADMINISTRADOR</DropdownItemS>
           </DropdownMenuS>
         </DropdownS>
-        </div>
-        
     </>
       
   );
