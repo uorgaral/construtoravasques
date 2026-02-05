@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
 import supabase from '../utils/supabase_client';
 import styled from 'styled-components';
-import Carousel from 'react-bootstrap/Carousel'
+import { Carousel } from 'react-bootstrap';
 
 
 const CarrosselS = styled(Carousel)`
     transition: 0.2s ease;
     width: 100vw !important;
     height: 100vh !important;
-
-    .carousel-inner, .carousel-item{
-        height: 100%
-    }
+    position: relative;
 
     img {
         object-fit: cover;
@@ -20,8 +17,8 @@ const CarrosselS = styled(Carousel)`
     }
 
     @media (max-width: 768px){
-    display: none;
-  };
+        display: none !important
+    };
 `
 
 
@@ -47,7 +44,7 @@ export default function Carrossel(){
 
 
     return(
-        <CarrosselS>
+        <CarrosselS fluid>
             {obras.map((item) => (
                 <Carousel.Item key={item.id}>
                     <img

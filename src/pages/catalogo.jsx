@@ -2,8 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import supabase from '../utils/supabase_client'
-import { Container, Row, Col, Stack } from "react-bootstrap";
-import { DirectionAwareHover } from "../components/direction-aware-hover";
+import { Container, Row, Col, Stack, Card } from "react-bootstrap";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
@@ -15,15 +14,6 @@ const ContainerS = styled(Container)`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`;
-
-const Imagem = styled(DirectionAwareHover)`
-    width: 100%;
-    height: 250px;
-    object-fit: cover; 
-    object-position: center; 
-    border-radius: 8px;
-    background-color: #f0f0f0; 
 `;
 
 const Titulo = styled.h1`
@@ -78,13 +68,14 @@ export default function Catalogo(){
             <Row className="justify-content-center">
                 {imagens.map((item) => (
                     <Col key={item.id || item.img_url} xs={12} md={4} className="mb-4">
-                        <div>
-                            <Imagem imageUrl={item.img_url}>
-                                <h1>{item.titulo}</h1>
-                                <p className="font-normal text-sm">{item.desc}</p>
-                                <button>Ver mais..</button>
-                            </Imagem>
-                        </div>
+                        <Card style={{ width: '18rem' }}>
+                        <Card.Img variant="top" src={item.img_url} />
+                        <Card.Body>
+                            <Card.Title>{item.titulo}</Card.Title>
+                            <Card.Text>{item.desc}</Card.Text>
+                            <button>Detalhes</button>
+                        </Card.Body>
+                        </Card>
                     </Col>
                 ))}
             </Row>
