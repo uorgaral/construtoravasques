@@ -2,11 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import supabase from '../utils/supabase_client'
-<<<<<<< HEAD
 import { Container, Row, Col, Stack, Image } from "react-bootstrap";
-=======
-import { Container, Row, Col, Stack, Card } from "react-bootstrap";
->>>>>>> 7188d4e62866e059ec14673820443388976adac1
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
@@ -113,23 +109,11 @@ export default function Catalogo(){
             
             <ResponsiveGrid>
                 {imagens.map((item) => (
-<<<<<<< HEAD
                     // md={4} define 3 colunas no desktop. m-0 e p-2 para melhor ajuste.
                     <Col key={item.id || item.img_url} xs="auto" md={3} className="mb-4 p-2">
                         <ImageWrapper>
                             <Image src={item.img_url} alt="Obra Catalogo" />
                         </ImageWrapper>
-=======
-                    <Col key={item.id || item.img_url} xs={12} md={4} className="mb-4">
-                        <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src={item.img_url} />
-                        <Card.Body>
-                            <Card.Title>{item.titulo}</Card.Title>
-                            <Card.Text>{item.desc}</Card.Text>
-                            <button>Detalhes</button>
-                        </Card.Body>
-                        </Card>
->>>>>>> 7188d4e62866e059ec14673820443388976adac1
                     </Col>
                 ))}
             </ResponsiveGrid>
