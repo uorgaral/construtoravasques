@@ -21,7 +21,6 @@ const ContainerS = styled(Container)`
 
     @media (max-width: 768px) {
       height: auto;
-      padding-top: 100px
     }
   }
 `;

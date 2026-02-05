@@ -175,7 +175,7 @@ export default function Menu() {
         </NavbarS>
 
         <DropdownS>
-          <DropdownBotaoS id="dropdown-autoclose-true" noCaret>
+          <DropdownBotaoS id="dropdown-autoclose-true">
             <img src={LogoBranco}></img>
           </DropdownBotaoS>
 

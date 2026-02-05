@@ -75,7 +75,7 @@ const ImageWrapper = styled.div`
   }
 `;
 
-export default function Catalogo(){
+export default function CatalogoAdm(){
     const [imagens, setImagens] = useState([]);
 
     useEffect(() => {
@@ -96,7 +96,7 @@ export default function Catalogo(){
 
     return(
         <ContainerS fluid>
-            <Titulo>Catálogo</Titulo>
+            <Titulo>Visão do Catálogo</Titulo>
 
             <Stack direction="horizontal" gap={2} className="justify-content-center">
                 <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
@@ -104,6 +104,7 @@ export default function Catalogo(){
                     <ToggleButton id="tbg-radio-2" value={2} variant="outline-danger">Residencial</ToggleButton>
                     <ToggleButton id="tbg-radio-3" value={3} variant="outline-danger">Comercial</ToggleButton>
                     <ToggleButton id="tbg-radio-4" value={4} variant="outline-danger">Reforma</ToggleButton>
+                    <ToggleButton id="tbg-radio-5" value={5} variant="outline-danger">Adicionar Obra</ToggleButton>
                 </ToggleButtonGroup>
             </Stack>
             
@@ -113,6 +114,8 @@ export default function Catalogo(){
                     <Col key={item.id || item.img_url} xs="auto" md={3} className="mb-4 p-2">
                         <ImageWrapper>
                             <Image src={item.img_url} alt="Obra Catalogo" />
+                            <button>Editar</button>
+                            <button>Deletar</button>
                         </ImageWrapper>
                     </Col>
                 ))}
