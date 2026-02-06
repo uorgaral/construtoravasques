@@ -81,13 +81,6 @@ button:focus-visible {
 }
 
 @font-face {
-  font-family: 'Cold Warm';
-  src: url('./assets/Fontes/Cold\ Warm.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: 'Coolvetica';
   src: url('./assets/Fontes/Coolvetica\ Rg.woff2') format('woff2');
   font-weight: normal;
@@ -95,8 +88,8 @@ button:focus-visible {
   font-display: swap;
 }
 @font-face {
-  font-family: 'ProLamina';
-  src: url('./assets/Fontes/CT\ ProLamina.woff2') format('woff2');
+  font-family: 'CHANEY';
+  src: url('./assets/Fontes/chaney-regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

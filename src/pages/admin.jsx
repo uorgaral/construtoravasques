@@ -14,7 +14,7 @@ const StyledCard = styled(Card)`
 `;
 
 const Titulo = styled.h2`
-  font-family: "Coolvetica", sans-serif;
+  font-family: "CHANEY", sans-serif;
   font-size: 32px;
   color: #6D070E;
   text-transform: uppercase;

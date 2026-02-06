@@ -5,6 +5,7 @@ import supabase from '../utils/supabase_client'
 import { Container, Row, Col, Stack, Image } from "react-bootstrap";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import { Link } from "react-router-dom";
 
 const ContainerS = styled(Container)`
     padding-top: 100px;
@@ -17,7 +18,7 @@ const ContainerS = styled(Container)`
 
 const Titulo = styled.h1`
   && {
-    font-family: "Coolvetica", sans-serif;
+    font-family: "CHANEY", sans-serif;
     color: #6D070E;
     letter-spacing: 2px;
     margin-bottom: 30px;
@@ -104,7 +105,8 @@ export default function CatalogoAdm(){
                     <ToggleButton id="tbg-radio-2" value={2} variant="outline-danger">Residencial</ToggleButton>
                     <ToggleButton id="tbg-radio-3" value={3} variant="outline-danger">Comercial</ToggleButton>
                     <ToggleButton id="tbg-radio-4" value={4} variant="outline-danger">Reforma</ToggleButton>
-                    <ToggleButton id="tbg-radio-5" value={5} variant="outline-danger">Adicionar Obra</ToggleButton>
+                    <ToggleButton id="tbg-radio-5" value={5} variant="outline-danger">
+                      <Link to="/admin/adicionar_obra">Adicionar Obra</Link></ToggleButton>
                 </ToggleButtonGroup>
             </Stack>
             

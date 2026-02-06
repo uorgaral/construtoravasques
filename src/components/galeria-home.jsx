@@ -45,7 +45,7 @@ const SectionWrapper = styled.section`
 `;
 
 const Titulo = styled.h2`
-  font-family: "Coolvetica", sans-serif;
+  font-family: "CHANEY", sans-serif;
   font-size: 32px; 
   color: #f7f7f7;    
   margin-bottom: 30px; 

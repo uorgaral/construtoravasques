@@ -17,7 +17,7 @@ const ContainerS = styled(Container)`
 
 const Titulo = styled.h1`
   && {
-    font-family: "Coolvetica", sans-serif;
+    font-family: "CHANEY", sans-serif;
     color: #6D070E;
     letter-spacing: 2px;
     margin-bottom: 30px;

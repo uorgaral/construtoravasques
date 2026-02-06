@@ -46,7 +46,7 @@ const ItemFeedback = styled.div`
 `;
 
 const Titulo = styled.h2`
-  font-family: "Coolvetica", sans-serif;
+  font-family: "CHANEY", sans-serif;
   font-size: 2rem; 
   color: #f7f7f7;    
   text-transform: uppercase;

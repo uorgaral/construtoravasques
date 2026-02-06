@@ -48,6 +48,7 @@ const ItemCompromisso = styled.div`
   flex: 1;
   width: 100%;
   max-width: 350px;
+  gap: 30px;
 
   img {
     max-width: 80px;
@@ -79,7 +80,7 @@ const ItemCompromisso = styled.div`
   }
 
   .text-wrapper {
-    max-width: 280px;
+    max-width: 200px;
     width: 100%;
   }
 
@@ -92,7 +93,7 @@ const ItemCompromisso = styled.div`
 
 const Titulo = styled.h2`
   && {
-    font-family: "Coolvetica", sans-serif;
+    font-family: "CHANEY", sans-serif;
     font-size: 32px;
     color: #6D070E;
     text-transform: uppercase;
