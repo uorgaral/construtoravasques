@@ -37,20 +37,20 @@ const Titulo = styled.h2`
 `;
 
 const ScrollContainer = styled.div`
-  display: flex; // Mudamos de Grid para Flex para facilitar o scroll horizontal
+  display: flex; 
   gap: 20px;
   width: 100%;
   max-width: 1200px;
-  padding: 0 20px 20px 20px; // Padding interno para o efeito de sombra não cortar
+  padding: 0 20px 20px 20px; 
 
   /* Lógica de Scroll Mobile */
   @media (max-width: 768px) {
-    overflow-x: auto; // Habilita o scroll horizontal
+    overflow-x: auto; 
     scroll-snap-type: x mandatory; // Faz a imagem "travar" no centro ao soltar
     -webkit-overflow-scrolling: touch;
     
     &::-webkit-scrollbar {
-      display: none; // Esconde a barra de rolagem para um visual mais limpo
+      display: none; 
     }
   }
 
@@ -63,8 +63,8 @@ const ScrollContainer = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  min-width: 85%; // No mobile, cada card ocupa 85% da tela (mostra um pedaço do próximo)
-  scroll-snap-align: center; // Centraliza o card ao arrastar
+  min-width: 85%;
+  scroll-snap-align: center; 
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -114,7 +114,6 @@ export default function Destaques() {
           <ImageWrapper key={item.id}>
             <Image
               src={item.img_url}
-              alt="Obra em destaque"
               loading="lazy"
             />
           </ImageWrapper>

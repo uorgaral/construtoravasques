@@ -12,6 +12,7 @@ import FachadaHugo from '../assets/ImagensHomeGaleria/FachadaHugo.jpeg'
 import Fachada from '../assets/ImagensHomeGaleria/Fachada.png'
 import Fachada3 from '../assets/ImagensHomeGaleria/Fachada3.JPG'
 import FachadaComercial from '../assets/ImagensHomeGaleria/FachadaComercial.png'
+import { Button } from "react-bootstrap";
 
 
 
@@ -83,6 +84,22 @@ const Imagens = styled.div`
   }
 `;
 
+const ButtonS = styled(Button)`
+  background-color: transparent;
+  border: 3px solid white;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3 ease;
+  margin-top: 30px;
+
+  &:hover{
+    background-color: transparent;
+    border: 3px solid #ff5c66;
+    color: #ff5c66;
+  }
+`
+
 
 export default function Montagem() {
   return (
@@ -97,7 +114,7 @@ export default function Montagem() {
         ))}
       </Galeria>
 
-      <button><Link to="/catalogo">Catálogo Completo</Link></button>
+      <ButtonS href="/catalogo">Catálogo Completo</ButtonS>
     </SectionWrapper>
   );
 }
