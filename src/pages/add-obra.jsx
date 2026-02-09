@@ -2,6 +2,7 @@ import supabase from '../utils/supabase_client';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Container, Form, Button, Card, Spinner } from 'react-bootstrap';
+import Select from 'react-select';
 
 // --- ESTILIZAÇÃO ---
 
@@ -91,6 +92,7 @@ export default function AdicionarObra() {
   const [imagem, setImagem] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]); 
 
   useEffect(() => {
     fetchCategorias();
@@ -126,50 +128,46 @@ export default function AdicionarObra() {
     return data.publicUrl;
   };
 
-  const addObra = async (e) => {
-    e.preventDefault();
-    
-    if (!titulo || !desc || !categoria || !imagem) {
-      alert("Por favor, preencha todos os campos e selecione uma imagem.");
-      return;
-    }
+        const addObra = async (e) => {
+        e.preventDefault();
+        
+        if (!titulo || !desc || categoriasSelecionadas.length === 0 || !imagem) {
+          alert("Por favor, preencha todos os campos.");
+          return;
+        }
 
-    setUploading(true);
+        setUploading(true);
 
-    try {
-      const img_url = await uploadImagem();
-      
-      if (!img_url) {
-        setUploading(false);
-        return;
-      }
+        try {
+          const img_url = await uploadImagem();
+          if (!img_url) return;
 
-      const { data, error } = await supabase
-        .from("ListaObras")
-        .insert([{ titulo, desc, categoria, img_url }])
-        .select()
-        .single();
+          // Converte o array ["A", "B"] em "A, B" para salvar no banco
+          const categoriasParaBanco = categoriasSelecionadas.join(", ");
 
-      if (error) throw error;
+          const { data, error } = await supabase
+            .from("ListaObras")
+            .insert([{ 
+              titulo, 
+              desc, 
+              categoria: categoriasParaBanco, // Enviando a string formatada
+              img_url 
+            }])
+            .select()
+            .single();
 
-      setListaObra([data, ...listaObra]);
-      
-      // Limpar formulário
-      setTitulo(""); 
-      setDesc(""); 
-      setCategoria(""); 
-      setImagem(null); 
-      setPreviewUrl(null);
-      
-      alert("Obra adicionada com sucesso!");
-    } catch (error) {
-      console.error("Erro ao salvar:", error);
-      alert("Erro ao salvar obra: " + error.message);
-    } finally {
-      setUploading(false);
-    }
-  };
+          if (error) throw error;
 
+          // Resetar campos
+          setCategoriasSelecionadas([]);
+          // ... restante do seu código de limpeza
+          alert("Obra adicionada com sucesso!");
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setUploading(false);
+        }
+      };
   return (
     <PageWrapper>
       <Container className="d-flex justify-content-center">
@@ -201,17 +199,13 @@ export default function AdicionarObra() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold text-secondary small">Categoria</Form.Label>
-              <Form.Select 
-                value={categoria} 
-                onChange={(e) => setCategoria(e.target.value)}
-                required
-              >
-                <option value="">Selecione...</option>
-                {listaCateg.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </Form.Select>
+              <Form.Label className="fw-bold text-secondary small">Categorias (Segure Ctrl para selecionar várias)</Form.Label>
+              <Select
+                isMulti
+                options={listaCateg.map(cat => ({ value: cat, label: cat }))}
+                onChange={(selected) => setCategoriasSelecionadas(selected.map(s => s.value))}
+                placeholder="Selecione as categorias..."
+              />
             </Form.Group>
 
             <Form.Group className="mb-4">

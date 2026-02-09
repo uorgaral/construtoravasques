@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/home"
 import AdicionarObra from "./pages/add-obra";
@@ -15,13 +16,14 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/catalogo" element={<Catalogo/>}/>
       <Route path="/obra/:id" element={<VerObra/>}/>
-
-
       <Route path="/admin" element={<Login />}/>
-      <Route path="/admin/dashboard" element={<Dashboard />}/>
-      <Route path="/admin/catalogo_adm" element={<CatalogoAdm/>}/>
-      <Route path="/admin/adicionar_obra" element={<AdicionarObra />} />
-      <Route path="/admin/obra_alterar/:id" element={<AlterarObra/>}/>
+
+
+      
+      <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
+      <Route path="/admin/catalogo_adm" element={<ProtectedRoute><CatalogoAdm /></ProtectedRoute>}/>
+      <Route path="/admin/adicionar_obra" element={<ProtectedRoute><AdicionarObra /></ProtectedRoute>} />
+      <Route path="/admin/obra_alterar/:id" element={<ProtectedRoute><AlterarObra /></ProtectedRoute>}/>
     </Routes>
   );
 };

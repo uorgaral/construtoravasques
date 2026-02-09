@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 import LogoBranco from '../assets/Logos/LogoBranco.png'
 import LogoVermelho from '../assets/Logos/LogoVermelho.png'
 import LogoGrande from '../assets/Logos/LogoGrande.png'
+import Login from '../assets/Logos/pessoa.png'
+import LoginVermelho from '../assets/Logos/pessoaVermelha.png'
 
 //imports do bootstrap
 import Container from 'react-bootstrap/Container';
@@ -150,8 +152,7 @@ const DropdownMenuS = styled(Dropdown.Menu)`
 //Código
 export default function Menu() {
   const [hover, setHover] = useState(false);
-
-
+  const [hoverLogin, setHoverLogin] = useState(false);
   return (
     <>
       <NavbarS fixed="top">
@@ -169,7 +170,13 @@ export default function Menu() {
               <NavS>
                 <NavLinkS to="/">PÁGINA INCIAL </NavLinkS>
                 <NavLinkS to="/catalogo">CATÁLOGO</NavLinkS>
-                <NavLinkS to="/admin">ADMINISTRADOR</NavLinkS>
+                <NavLinkS 
+                  to="/admin"
+                  onMouseEnter={() => setHoverLogin(true)}
+                  onMouseLeave={() => setHoverLogin(false)}
+                  >
+                    <LogoImg src={hoverLogin ? LoginVermelho : Login} $hover={hoverLogin}/>
+                </NavLinkS>
               </NavS>
             </ContainerS>
         </NavbarS>
