@@ -2,7 +2,6 @@ import supabase from '../utils/supabase_client';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Container, Form, Button, Card, Spinner } from 'react-bootstrap';
-import Select from 'react-select';
 
 // --- ESTILIZAÇÃO ---
 
@@ -128,46 +127,50 @@ export default function AdicionarObra() {
     return data.publicUrl;
   };
 
-        const addObra = async (e) => {
-        e.preventDefault();
-        
-        if (!titulo || !desc || categoriasSelecionadas.length === 0 || !imagem) {
-          alert("Por favor, preencha todos os campos.");
-          return;
-        }
+  const addObra = async (e) => {
+    e.preventDefault();
+    
+    if (!titulo || !desc || !categoria || !imagem) {
+      alert("Por favor, preencha todos os campos e selecione uma imagem.");
+      return;
+    }
 
-        setUploading(true);
+    setUploading(true);
 
-        try {
-          const img_url = await uploadImagem();
-          if (!img_url) return;
+    try {
+      const img_url = await uploadImagem();
+      
+      if (!img_url) {
+        setUploading(false);
+        return;
+      }
 
-          // Converte o array ["A", "B"] em "A, B" para salvar no banco
-          const categoriasParaBanco = categoriasSelecionadas.join(", ");
+      const { data, error } = await supabase
+        .from("ListaObras")
+        .insert([{ titulo, desc, categoria, img_url }])
+        .select()
+        .single();
 
-          const { data, error } = await supabase
-            .from("ListaObras")
-            .insert([{ 
-              titulo, 
-              desc, 
-              categoria: categoriasParaBanco, // Enviando a string formatada
-              img_url 
-            }])
-            .select()
-            .single();
+      if (error) throw error;
 
-          if (error) throw error;
+      setListaObra([data, ...listaObra]);
+      
+      // Limpar formulário
+      setTitulo(""); 
+      setDesc(""); 
+      setCategoria(""); 
+      setImagem(null); 
+      setPreviewUrl(null);
+      
+      alert("Obra adicionada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao salvar:", error);
+      alert("Erro ao salvar obra: " + error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
 
-          // Resetar campos
-          setCategoriasSelecionadas([]);
-          // ... restante do seu código de limpeza
-          alert("Obra adicionada com sucesso!");
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setUploading(false);
-        }
-      };
   return (
     <PageWrapper>
       <Container className="d-flex justify-content-center">
@@ -199,13 +202,17 @@ export default function AdicionarObra() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold text-secondary small">Categorias (Segure Ctrl para selecionar várias)</Form.Label>
-              <Select
-                isMulti
-                options={listaCateg.map(cat => ({ value: cat, label: cat }))}
-                onChange={(selected) => setCategoriasSelecionadas(selected.map(s => s.value))}
-                placeholder="Selecione as categorias..."
-              />
+              <Form.Label className="fw-bold text-secondary small">Categoria</Form.Label>
+              <Form.Select 
+                value={categoria} 
+                onChange={(e) => setCategoria(e.target.value)}
+                required
+              >
+                <option value="">Selecione...</option>
+                {listaCateg.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-4">
