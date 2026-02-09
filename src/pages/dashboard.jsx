@@ -1,7 +1,8 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom" // Use o hook para navegação interna
 import styled from "styled-components"
 import { Button } from "react-bootstrap"
+import supabase from "../utils/supabase_client"
 
 const DivS = styled.div`
     display: flex;
@@ -35,12 +36,24 @@ const Titulo = styled.h1`
 
 
 export default function Dashboard(){
+  const navigate = useNavigate();
+  
+  const handleLogout = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    alert("Erro ao sair: " + error.message);
+  } else {
+    window.location.href = "/admin"; 
+  }
+};
     return(
         <DivS>
             <Titulo>Seja bem vindo!</Titulo>
             <ButtonS href="/">PÁGINA INICIAL</ButtonS>
             <ButtonS href="/admin/catalogo_adm">VISÃO DO CATÁLOGO</ButtonS>
             <ButtonS href="/admin/adicionar_obra">ADICIONAR OBRA</ButtonS>
+
+            <ButtonS onClick={handleLogout}>SAIR DO SISTEMA</ButtonS>
         </DivS>
     )
     
