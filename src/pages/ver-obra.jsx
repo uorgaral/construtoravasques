@@ -4,62 +4,71 @@ import supabase from "../utils/supabase_client";
 import { Spinner } from "react-bootstrap";
 import styled from "styled-components";
 
+const GaleriaImagens = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px;
+    width: 100%;
+    margin-top: 10px;
 
-const FullPageWrapper = styled.div`
-    width: 100vw;
-    height: 100vh;
+    /* Container da imagem para manter a proporção */
+    .img-container {
+        width: 100%;
+        aspect-ratio: 1 / 1; /* Quadrado, ou 4/3 para retangular */
+        background-color: #f0f0f0; /* Fundo cinza para imagens com proporções diferentes */
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    img {
+        width: 100%;
+        height: auto; 
+        object-fit: contain; 
+        transition: transform 0.3s ease;
+        border-radius: 8px;
+        display: block;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+    }
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+`;
+const ContentSide = styled.div`
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60px;
-    box-sizing: border-box;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    flex-direction: column;
+    max-width: 800px; 
+    margin: 0 auto; 
+    width: 100%;
 `;
 
 const CustomCard = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* Mudado para column para acomodar melhor a galeria abaixo do título */
     width: 100%;
     max-width: 1100px;
     background: white;
     border-radius: 20px;
-    overflow: hidden;
+    padding: 40px; /* Padding interno em vez de overflow hidden */
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    min-height: 500px;
     margin-top: 80px;
-
-    @media (max-width: 850px) {
-        flex-direction: column;
-        max-width: 500px;
-    }
+    height: auto; /* Deixa o conteúdo definir a altura */
+    min-height: 500px;
 `;
 
-const ImageSide = styled.div`
-    flex: 1; /* Ocupa 50% */
-    background-image: url(${props => props.src});
-    background-size: cover;
-    background-position: center;
-    min-height: 400px;
-`;
-
-
-const ContentSide = styled.div`
-    flex: 1;
-    padding: 60px;
+const FullPageWrapper = styled.div`
+    width: 100%;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    text-align: left;
-    /* Adicionado para garantir que o conteúdo longo não force a largura do flex */
-    min-width: 0; 
-
-    @media (max-width: 850px) {
-        padding: 30px;
-    }
+    align-items: flex-start; /* Alinha no topo para permitir scroll */
+    padding: 40px 20px;
+    background-color: #818181;
 `;
 
 const Title = styled.h1`
@@ -67,21 +76,14 @@ const Title = styled.h1`
     font-size: 38px;
     color: #111;
     margin-bottom: 20px;
-    /* Ajustes para texto longo */
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     line-height: 1.2;
-`;
 
-const Text = styled.p`
-    color: #555;
-    line-height: 1.6;
-    font-size: 18px;
-    margin-bottom: 40px;
-    /* Ajustes para texto longo */
-    word-wrap: break-word;
-    white-space: pre-wrap; /* Preserva quebras de linha do banco de dados */
+    @media(max-width: 768px){
+        font-size: 20px;
+    }
 `;
 
 const Tag = styled.span`
@@ -107,11 +109,17 @@ const BackBtn = styled.button`
     font-weight: bold;
     width: fit-content;
     transition: 0.3s;
+    margin-top: 15px;
 
     &:hover {
         background: #6D070E;
         color: white;
         border-color: #6D070E;
+    }
+
+    @media(max-width: 768px){
+        font-size: 15px;
+        padding: 5px 10px;
     }
 `;
 
@@ -136,10 +144,22 @@ export default function VerObra() {
     return (
         <FullPageWrapper>
             <CustomCard>
-                <ImageSide src={obra.img_url} />
                 <ContentSide>
                     <Tag>{obra.categoria}</Tag>
                     <Title>{obra.titulo}</Title>
+
+                    <GaleriaImagens>
+                        {Array.isArray(obra.img_url) ? (
+                            obra.img_url.map((url, index) => (
+                                <div key={index}>
+                                    <img src={url} alt={`${obra.titulo} - ${index}`} />
+                                </div>
+                            ))
+                        ) : (
+                                <img src={obra.img_url} alt={obra.titulo} />
+                        )}
+                    </GaleriaImagens>
+                    
                     <BackBtn onClick={() => navigate(-1)}>← VOLTAR AO CATÁLOGO</BackBtn>
                 </ContentSide>
             </CustomCard>

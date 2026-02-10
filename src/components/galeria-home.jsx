@@ -47,12 +47,25 @@ const SectionWrapper = styled.section`
 
 const Titulo = styled.h2`
   font-family: "CHANEY", sans-serif;
-  font-size: 32px; 
-  color: #f7f7f7;    
-  margin-bottom: 30px; 
+  font-size: 40px;
+  color: #dfdfdf;
+  margin-bottom: 50px;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 300;
+  letter-spacing: 4px;
+  font-weight: 400;
+  position: relative;
+  text-align: center;
+
+  &::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background-color: #dfdfdf;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const Galeria = styled.div`

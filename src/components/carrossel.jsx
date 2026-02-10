@@ -27,13 +27,14 @@ export default function Carrossel(){
 
     useEffect(() => {
         async function buscarImagens() {
+            // Adicionamos o filtro .neq para excluir a categoria Destaques
             const {data, error} = await supabase
                 .from("ListaObras")
-                .select("*");
+                .select("*")
+                .neq("categoria", "Destaques"); 
 
             if (error) {
                 console.log("Erro ao importar as imagens", error);
-                alert("Erro ao importar as imagens")
             } else {
                 setObras(data);
             }
@@ -42,16 +43,16 @@ export default function Carrossel(){
         buscarImagens();
     }, []);
 
-
     return(
         <CarrosselS fluid>
             {obras.map((item) => (
                 <Carousel.Item key={item.id}>
                     <img
-                    className="d-block w-100"
-                    src={item.img_url}
+                        className="d-block w-100"
+                        src={Array.isArray(item.img_url) ? item.img_url[0] : item.img_url}
+                        alt={item.titulo}
                     />
-        </Carousel.Item>
+                </Carousel.Item>
             ))}
         </CarrosselS>
     );

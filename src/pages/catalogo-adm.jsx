@@ -42,17 +42,26 @@ const GridObras = styled.div`
 }
 `;
 
-const Titulo = styled.h1`
-  && {
-    font-family: "CHANEY", sans-serif;
-    color: #6D070E;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-  }
+const Titulo = styled.h2`
+  font-family: "CHANEY", sans-serif;
+  font-size: 40px;
+  color: #6d070e;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 400;
+  position: relative;
+  text-align: center;
 
-  @media (max-width: 768px){
-    text-align: center;
-    font-size: 26px;
+  &::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background-color: #6d070e;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
@@ -73,6 +82,7 @@ const Overlay = styled.div`
   z-index: 2;
   padding: 20px;
   border-radius: 12px;
+  gap: 5px;
 `;
 
 const NomeObra = styled.h3`
@@ -84,14 +94,13 @@ const NomeObra = styled.h3`
   transform: translateY(20px);
   transition: transform 0.4s ease;
   width: 90%;
-  
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limita a no máximo 3 linhas */
-  -webkit-box-orient: vertical;
-  overflow: hidden; /* Esconde o que passar de 3 linhas */
-  text-overflow: ellipsis; /* Adiciona os "..." */
+
   word-wrap: break-word; /* Força a quebra de palavras muito longas */
   line-height: 1.2; /* Ajusta o espaçamento entre linhas para não cortar letras */
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const BotaoVerMais = styled(Link)`
@@ -104,10 +113,15 @@ const BotaoVerMais = styled(Link)`
   font-size: 0.8rem;
   letter-spacing: 1px;
   transition: transform 0.3s ease, background 0.3s ease;
+  width: 148px;
 
   &:hover {
     background-color: #9c0a14;
     transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
   }
 `;
 
@@ -177,16 +191,20 @@ export default function CatalogoAdm() {
   useEffect(() => {
     async function buscarObras() {
       let query = supabase.from("ListaObras").select("*");
-      if (categoria !== "Geral") {
+
+      if (categoria === "Geral") {
+        query = query.neq("categoria", "Destaques");
+      } else {
         query = query.eq("categoria", categoria);
       }
       const { data, error } = await query;
       if (error) {
-        console.error("Erro Supabase:", error);
-      } else {
+        console.error("Erro ao buscar obras:", error);
+      } else if (data) {
         setImagens(data);
       }
     }
+    
     buscarObras();
   }, [categoria]);
 
@@ -202,7 +220,6 @@ export default function CatalogoAdm() {
         <button className={getBtnClass("Geral")} onClick={() => setCategoria("Geral")}>Geral</button>
         <button className={getBtnClass("Residencial")} onClick={() => setCategoria("Residencial")}>Residencial</button>
         <button className={getBtnClass("Comercial")} onClick={() => setCategoria("Comercial")}>Comercial</button>
-        <button className={getBtnClass("Reforma")} onClick={() => setCategoria("Reforma")}>Reforma</button>
         <AdminBtn to="/admin/adicionar_obra">Adicionar Obra</AdminBtn>
       </Stack>
 
@@ -210,11 +227,11 @@ export default function CatalogoAdm() {
         {imagens.length > 0 ? (
           imagens.map((item) => (
             <ImageWrapper key={item.id}>
-              <Image src={item.img_url} alt={item.titulo || "Obra"} />
+              <Image src={item.img_url?.[0]} />
               <Overlay>
-                <NomeObra>{item.titulo || "Obra sem título"}</NomeObra>
+                <NomeObra>{item.titulo}</NomeObra>
                 <BotaoVerMais to={`/obra/${item.id}`}>
-                  VER DETALHES
+                  VER MAIS
                 </BotaoVerMais>
                 <BotaoVerMais to={`/admin/obra_alterar/${item.id}`}>
                   EDITAR OBRA

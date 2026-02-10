@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Container, Form, Button, Card, Spinner } from 'react-bootstrap';
 
-// --- ESTILIZAÇÃO ---
+// --- ESTILIZAÇÃO (Adicionado Grid para Previews) ---
 
 const PageWrapper = styled.div`
   width: 100%;
@@ -12,14 +12,8 @@ const PageWrapper = styled.div`
   padding-bottom: 60px;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Alinha ao topo para evitar saltos de layout */
-  background-color: transparent; /* Permite ver o fundo cinza do body */
-
-  @media (max-width: 768px) {
-    padding-top: 100px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
+  align-items: flex-start;
+  background-color: transparent;
 `;
 
 const StyledCard = styled(Card)`
@@ -30,33 +24,29 @@ const StyledCard = styled(Card)`
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2); 
   padding: 2.5rem;
   background-color: #ffffff;
-
-  @media (max-width: 576px) {
-    padding: 1.5rem;
-    border-radius: 15px;
-  }
 `;
 
 const Titulo = styled.h1`
   font-family: "CHANEY", sans-serif;
   color: #6D070E;
   font-size: 1.8rem;
-  letter-spacing: 1px;
-  margin-bottom: 2rem;
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 2rem;
+`;
 
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
+const PreviewGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
 `;
 
 const PreviewImage = styled.img`
   width: 100%;
-  max-height: 350px;
+  height: 120px;
   object-fit: cover;
   border-radius: 12px;
-  margin-top: 15px;
   border: 1px solid #ddd;
 `;
 
@@ -65,37 +55,19 @@ const StyledButton = styled(Button)`
   border: none !important;
   padding: 14px;
   font-weight: bold;
-  letter-spacing: 1px;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
   margin-top: 10px;
-
-  &:hover {
-    background-color: #4a050a !important;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(109, 7, 14, 0.3);
-  }
-
-  &:disabled {
-    background-color: #cccccc !important;
-  }
 `;
 
-
 export default function AdicionarObra() {
-  const [listaObra, setListaObra] = useState([]);
   const [listaCateg, setListaCateg] = useState([]);
   const [titulo, setTitulo] = useState("");
-  const [desc, setDesc] = useState("");
   const [categoria, setCategoria] = useState("");
-  const [imagem, setImagem] = useState(null);
+  const [imagens, setImagens] = useState([]); // Agora é plural
   const [uploading, setUploading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [categoriasSelecionadas, setCategoriasSelecionadas] = useState([]); 
+  const [previewUrls, setPreviewUrls] = useState([]); // Agora é plural
 
   useEffect(() => {
     fetchCategorias();
-    fetchObras();
   }, []);
 
   const fetchCategorias = async () => {
@@ -103,64 +75,66 @@ export default function AdicionarObra() {
     if (!error) setListaCateg(data.map(c => c.nome_categoria));
   };
 
-  const fetchObras = async () => {
-    const { data, error } = await supabase.from("ListaObras").select("*");
-    if (!error) setListaObra(data);
-  };
-
-  const uploadImagem = async () => {
-    if (!imagem) return null;
+  // FUNÇÃO DE UPLOAD CORRIGIDA
+  const uploadImagens = async () => {
+    if (imagens.length === 0) return null;
 
     const gerarSlug = (t) => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-");
-    const extensao = imagem.name.split('.').pop();
-    const nomeArquivo = `${gerarSlug(titulo)}-${Date.now()}.${extensao}`;
 
-    const { error } = await supabase.storage.from("Imagens").upload(nomeArquivo, imagem);
-    
-    if (error) {
+    try {
+      const uploadPromises = imagens.map(async (file) => {
+        const extensao = file.name.split('.').pop(); // O 'split' agora funciona aqui
+        const nomeArquivo = `${gerarSlug(titulo)}-${Math.random().toString(36).substring(7)}.${extensao}`;
+
+        const { error } = await supabase.storage.from("Imagens").upload(nomeArquivo, file);
+        if (error) throw error;
+
+        const { data } = supabase.storage.from("Imagens").getPublicUrl(nomeArquivo);
+        return data.publicUrl;
+      });
+
+      return await Promise.all(uploadPromises); // Retorna array de URLs
+    } catch (error) {
       console.error("Erro no storage:", error);
-      alert("Erro ao enviar a imagem.");
+      alert("Erro ao enviar uma ou mais imagens.");
       return null;
     }
-
-    const { data } = supabase.storage.from("Imagens").getPublicUrl(nomeArquivo);
-    return data.publicUrl;
   };
 
   const addObra = async (e) => {
     e.preventDefault();
     
-    if (!titulo || !desc || !categoria || !imagem) {
-      alert("Por favor, preencha todos os campos e selecione uma imagem.");
+    if (!titulo || !categoria || imagens.length === 0) {
+      alert("Por favor, preencha todos os campos e selecione ao menos uma imagem.");
       return;
     }
 
     setUploading(true);
 
     try {
-      const img_url = await uploadImagem();
+      const urls_das_imagens = await uploadImagens();
       
-      if (!img_url) {
+      if (!urls_das_imagens) {
         setUploading(false);
         return;
       }
 
-      const { data, error } = await supabase
+      // Certifique-se que a coluna img_url no Supabase aceite Array (tipo text[])
+      const { error } = await supabase
         .from("ListaObras")
-        .insert([{ titulo, desc, categoria, img_url }])
-        .select()
-        .single();
+        .insert([{ 
+          titulo, 
+          categoria, 
+          img_url: urls_das_imagens // Enviando o array de URLs
+        }]);
 
       if (error) throw error;
 
-      setListaObra([data, ...listaObra]);
-      
       // Limpar formulário
       setTitulo(""); 
-      setDesc(""); 
       setCategoria(""); 
-      setImagem(null); 
-      setPreviewUrl(null);
+      setImagens([]); 
+      setPreviewUrls([]);
       
       alert("Obra adicionada com sucesso!");
     } catch (error) {
@@ -182,7 +156,7 @@ export default function AdicionarObra() {
               <Form.Label className="fw-bold text-secondary small">Título da Obra</Form.Label>
               <Form.Control 
                 type="text" 
-                placeholder="Insira o título" 
+                placeholder="Adicione um titulo:" 
                 value={titulo} 
                 onChange={(e) => setTitulo(e.target.value)} 
                 required
@@ -196,7 +170,7 @@ export default function AdicionarObra() {
                 onChange={(e) => setCategoria(e.target.value)}
                 required
               >
-                <option value="">Selecione...</option>
+                <option value="">Selecione uma categoria</option>
                 {listaCateg.map((cat) => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
@@ -204,19 +178,23 @@ export default function AdicionarObra() {
             </Form.Group>
 
             <Form.Group className="mb-4">
-              <Form.Label className="fw-bold text-secondary small">Imagem da Obra</Form.Label>
+              <Form.Label className="fw-bold text-secondary small">Imagens da Obra</Form.Label>
               <Form.Control 
                 type="file" 
                 accept="image/*"
                 multiple
                 onChange={(e) => {
                   const files = Array.from(e.target.files);
-                  setImagem(files);
+                  setImagens(files);
                   const urls = files.map(file => URL.createObjectURL(file));
-                  setPreviewUrl(url); 
+                  setPreviewUrls(urls); 
                 }}
               />
-              {previewUrl && <PreviewImage src={previewUrl} alt="Preview" />}
+              <PreviewGrid>
+                {previewUrls.map((url, index) => (
+                  <PreviewImage key={index} src={url} alt={`Preview ${index}`} />
+                ))}
+              </PreviewGrid>
             </Form.Group>
 
             <StyledButton type="submit" className="w-100" disabled={uploading}>

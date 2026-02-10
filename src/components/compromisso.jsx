@@ -92,18 +92,25 @@ const ItemCompromisso = styled.div`
 `;
 
 const Titulo = styled.h2`
-  && {
-    font-family: "CHANEY", sans-serif;
-    font-size: 32px;
-    color: #6D070E;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 300;
-  }
+  font-family: "CHANEY", sans-serif;
+  font-size: 40px;
+  color: #6d070e;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 400;
+  position: relative;
+  text-align: center;
 
-  @media (max-width: 768px){
-    text-align: center;
-    font-size: 26px;
+  &::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background-color: #6d070e;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 

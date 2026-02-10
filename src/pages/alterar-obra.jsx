@@ -82,7 +82,6 @@ export default function AlterarObra() {
   const navigate = useNavigate();
 
   const [titulo, setTitulo] = useState("");
-  const [desc, setDesc] = useState("");
   const [categoria, setCategoria] = useState("");
   const [listaCateg, setListaCateg] = useState([]);
   const [imagem, setImagem] = useState(null);
@@ -116,7 +115,6 @@ export default function AlterarObra() {
       navigate("/admin/catalogo_adm");
     } else {
       setTitulo(data.titulo);
-      setDesc(data.desc);
       setCategoria(data.categoria);
       setPreviewUrl(data.img_url);
     }
@@ -164,7 +162,7 @@ export default function AlterarObra() {
       const img_url = await uploadImagem();
       const { error } = await supabase
         .from("ListaObras")
-        .update({ titulo, desc, categoria, img_url })
+        .update({ titulo, categoria, img_url })
         .eq("id", id);
 
       if (error) throw error;

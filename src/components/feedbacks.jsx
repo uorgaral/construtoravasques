@@ -47,14 +47,24 @@ const ItemFeedback = styled.div`
 
 const Titulo = styled.h2`
   font-family: "CHANEY", sans-serif;
-  font-size: 2rem; 
-  color: #f7f7f7;    
+  font-size: 40px;
+  color: #dfdfdf;
+  margin-bottom: 50px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
+  font-weight: 400;
+  position: relative;
   text-align: center;
 
-  @media (max-width: 480px) {
-    font-size: 1.5rem;
+  &::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background-color: #dfdfdf;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
@@ -76,7 +86,7 @@ const Parag = styled.p`
 export default function Feedbacks(){
     return(
         <ContainerS fluid>
-            <div style={{display: "flex", flexDirection: "row", alignItems: "center", gap: 20}}>
+            <div style={{display: "flex", flexDirection: "row", alignItems: "start", gap: 20}}>
                 <img src={iconeChat}/>
                 <Titulo>Feedbacks</Titulo>
             </div>

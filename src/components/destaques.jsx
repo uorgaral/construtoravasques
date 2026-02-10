@@ -5,7 +5,7 @@ import supabase from "../utils/supabase_client";
 
 const SectionWrapper = styled.section`
   width: 100%;
-  padding: 60px 0; // Removi o padding lateral no mobile para a imagem encostar na borda ao scrollar
+  padding: 20px 0;
   background-color: #999;
   display: flex;
   flex-direction: column;
@@ -63,7 +63,7 @@ const ScrollContainer = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  min-width: 85%;
+  min-width: 80%;
   scroll-snap-align: center; 
   overflow: hidden;
   border-radius: 8px;
@@ -113,7 +113,7 @@ export default function Destaques() {
         {destaques.map((item) => (
           <ImageWrapper key={item.id}>
             <Image
-              src={item.img_url}
+              src={item.img_url?.[0]}
               loading="lazy"
             />
           </ImageWrapper>

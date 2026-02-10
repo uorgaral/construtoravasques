@@ -6,6 +6,7 @@ import Destaques from '../components/destaques.jsx'
 import Montagem from '../components/galeria-home.jsx'
 import Compromisso from '../components/compromisso.jsx'
 import Feedbacks from  '../components/feedbacks.jsx'
+import Contato from '../components/contato.jsx'
 
 
 const ContainerS = styled(Container)`
@@ -33,6 +34,7 @@ export default function Home(){
             <Montagem/>
             <Compromisso/>
             <Feedbacks/>
+            <Contato/>
         </ContainerS>
     )
 }
