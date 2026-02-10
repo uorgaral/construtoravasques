@@ -63,6 +63,12 @@ const Titulo = styled.h2`
     left: 50%;
     transform: translateX(-50%);
   }
+
+  @media (max-width: 768px){
+    font-size: 25px;
+    word-wrap: break-word;
+    line-height: 1.2;
+  }
 `;
 
 
@@ -97,6 +103,10 @@ const NomeObra = styled.h3`
 
   word-wrap: break-word; /* Força a quebra de palavras muito longas */
   line-height: 1.2; /* Ajusta o espaçamento entre linhas para não cortar letras */
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const BotaoVerMais = styled(Link)`
@@ -114,6 +124,10 @@ const BotaoVerMais = styled(Link)`
   &:hover {
     background-color: #9c0a14;
     transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
   }
 `;
 
@@ -208,7 +222,7 @@ export default function Catalogo() {
              alt={item.titulo} 
              />
             <Overlay>
-              <NomeObra style={{color: 'white', fontSize: '1.1rem', textAlign: 'center'}}>{item.titulo}</NomeObra>
+              <NomeObra>{item.titulo}</NomeObra>
               <BotaoVerMais to={`/obra/${item.id}`}>VER MAIS</BotaoVerMais>
             </Overlay>
           </ImageWrapper>

@@ -66,6 +66,12 @@ const Titulo = styled.h2`
     left: 50%;
     transform: translateX(-50%);
   }
+
+  @media (max-width: 768px){
+    font-size: 25px;
+    word-wrap: break-word;
+    line-height: 1.2;
+  }
 `;
 
 const TitTexto = styled.h3`

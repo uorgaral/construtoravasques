@@ -15,16 +15,30 @@ const StyledCard = styled(Card)`
 
 const Titulo = styled.h2`
   font-family: "CHANEY", sans-serif;
-  font-size: 32px;
-  color: #6D070E;
+  font-size: 40px;
+  color: #6d070e;
+  margin-bottom: 50px;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 300;
+  letter-spacing: 4px;
+  font-weight: 400;
+  position: relative;
   text-align: center;
-  margin-bottom: 1.5rem;
 
-  @media (max-width: 768px) {
-    font-size: 26px;
+  &::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background-color: #6d070e;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 768px){
+    font-size: 25px;
+    word-wrap: break-word;
+    line-height: 1.2;
   }
 `;
 

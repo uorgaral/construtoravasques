@@ -26,13 +26,33 @@ const StyledCard = styled(Card)`
   background-color: #ffffff;
 `;
 
-const Titulo = styled.h1`
+const Titulo = styled.h2`
   font-family: "CHANEY", sans-serif;
-  color: #6D070E;
-  font-size: 1.8rem;
-  text-align: center;
+  font-size: 40px;
+  color: #6d070e;
+  margin-bottom: 50px;
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  letter-spacing: 4px;
+  font-weight: 400;
+  position: relative;
+  text-align: center;
+
+  &::after {
+    content: "";
+    width: 60px;
+    height: 3px;
+    background-color: #6d070e;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @media (max-width: 768px){
+    font-size: 25px;
+    word-wrap: break-word;
+    line-height: 1.2;
+  }
 `;
 
 const PreviewGrid = styled.div`

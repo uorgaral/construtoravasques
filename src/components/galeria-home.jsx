@@ -48,7 +48,7 @@ const SectionWrapper = styled.section`
 const Titulo = styled.h2`
   font-family: "CHANEY", sans-serif;
   font-size: 40px;
-  color: #dfdfdf;
+  color: #6d070e;
   margin-bottom: 50px;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -60,11 +60,17 @@ const Titulo = styled.h2`
     content: "";
     width: 60px;
     height: 3px;
-    background-color: #dfdfdf;
+    background-color: #6d070e;
     position: absolute;
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  @media (max-width: 768px){
+    font-size: 25px;
+    word-wrap: break-word;
+    line-height: 1.2;
   }
 `;
 
