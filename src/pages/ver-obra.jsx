@@ -140,7 +140,6 @@ export default function VerObra() {
                 <ContentSide>
                     <Tag>{obra.categoria}</Tag>
                     <Title>{obra.titulo}</Title>
-                    <Text>{obra.desc || "Descrição do projeto não informada."}</Text>
                     <BackBtn onClick={() => navigate(-1)}>← VOLTAR AO CATÁLOGO</BackBtn>
                 </ContentSide>
             </CustomCard>

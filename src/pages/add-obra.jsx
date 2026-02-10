@@ -190,18 +190,6 @@ export default function AdicionarObra() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold text-secondary small">Descrição</Form.Label>
-              <Form.Control 
-                as="textarea" 
-                rows={3} 
-                placeholder="Insira uma descrição breve" 
-                value={desc} 
-                onChange={(e) => setDesc(e.target.value)} 
-                required
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
               <Form.Label className="fw-bold text-secondary small">Categoria</Form.Label>
               <Form.Select 
                 value={categoria} 
@@ -220,13 +208,13 @@ export default function AdicionarObra() {
               <Form.Control 
                 type="file" 
                 accept="image/*"
+                multiple
                 onChange={(e) => {
-                  const file = e.target.files[0];
-                  if(file) {
-                    setImagem(file);
-                    setPreviewUrl(URL.createObjectURL(file));
-                  }
-                }} 
+                  const files = Array.from(e.target.files);
+                  setImagem(files);
+                  const urls = files.map(file => URL.createObjectURL(file));
+                  setPreviewUrl(url); 
+                }}
               />
               {previewUrl && <PreviewImage src={previewUrl} alt="Preview" />}
             </Form.Group>

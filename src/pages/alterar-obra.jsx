@@ -193,11 +193,6 @@ export default function AlterarObra() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold text-secondary small">Descrição</Form.Label>
-              <Form.Control as="textarea" rows={3} value={desc} onChange={(e) => setDesc(e.target.value)} required />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
               <Form.Label className="fw-bold text-secondary small">Categoria</Form.Label>
               <Form.Select value={categoria} onChange={(e) => setCategoria(e.target.value)} required>
                 {listaCateg.map(cat => <option key={cat} value={cat}>{cat}</option>)}
