@@ -48,7 +48,7 @@ const SectionWrapper = styled.section`
 const Titulo = styled.h2`
   font-family: "CHANEY", sans-serif;
   font-size: 40px;
-  color: #6d070e;
+  color: #dfdfdf;
   margin-bottom: 50px;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -60,7 +60,7 @@ const Titulo = styled.h2`
     content: "";
     width: 60px;
     height: 3px;
-    background-color: #6d070e;
+    background-color: #dfdfdf;
     position: absolute;
     bottom: -10px;
     left: 50%;
