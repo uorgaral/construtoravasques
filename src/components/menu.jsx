@@ -188,9 +188,9 @@ export default function Menu() {
 
           <DropdownMenuS>
             <Dropdown.Header><img src={LogoGrande} style={{width: 134, height: 30}}/></Dropdown.Header>
-            <DropdownItemS href="/">PÁGINA INICIAL</DropdownItemS>
-            <DropdownItemS href="/catalogo">CATÁLOGO</DropdownItemS>
-            <DropdownItemS href="/admin">ADMINISTRADOR</DropdownItemS>
+            <DropdownItemS to="/">PÁGINA INICIAL</DropdownItemS>
+            <DropdownItemS to="/catalogo">CATÁLOGO</DropdownItemS>
+            <DropdownItemS to="/admin">ADMINISTRADOR</DropdownItemS>
           </DropdownMenuS>
         </DropdownS>
     </>

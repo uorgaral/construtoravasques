@@ -196,7 +196,7 @@ export default function CatalogoAdm() {
 
   useEffect(() => {
     async function buscarObras() {
-      let query = supabase.from("ListaObras").select("*");
+      let query = supabase.from("ListaObras").select("*").order('created_at', { ascending: false });
 
       if (categoria === "Geral") {
         query = query.neq("categoria", "Destaques");
