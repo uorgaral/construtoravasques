@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { Container } from "react-bootstrap";
 
 import iconeLampada from '../assets/Logos/lampada-incandescente 1.png';
-import iconeCaneta from '../assets/Logos/escrita 1.png';
-import iconeMapa from '../assets/Logos/mapa 2.png';
+import iconeSeguranca from '../assets/Logos/escudo.png';
+import iconePremio from '../assets/Logos/garantia.png';
 
 // Container com especificidade reforçada
 const ContainerS = styled(Container)`
@@ -48,7 +48,7 @@ const ItemCompromisso = styled.div`
   flex: 1;
   width: 100%;
   max-width: 350px;
-  gap: 30px;
+  gap: 18px;
 
   img {
     max-width: 80px;
@@ -95,7 +95,7 @@ const Titulo = styled.h2`
   font-family: "CHANEY", sans-serif;
   font-size: 40px;
   color: #6d070e;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   text-transform: uppercase;
   letter-spacing: 4px;
   font-weight: 400;
@@ -131,33 +131,24 @@ export default function Compromisso() {
         <ItemCompromisso>
           <img src={iconeLampada} alt="Lâmpada" />
           <div className="text-wrapper">
-            <h1>CONTRATO TRANSPARENTE COM VALOR FECHADO</h1>
-            <p>
-              Contrato sem alteração de valores de materiais, mão de obra e
-              administração por engenheiros qualificados.
-            </p>
+            <h1>Contrato transparente com valor fechado!</h1>
+            <p>Transparência do orçamento à entrega.</p>
           </div>
         </ItemCompromisso>
 
         <ItemCompromisso>
-          <img src={iconeCaneta} alt="Caneta" />
+          <img src={iconeSeguranca} alt="Caneta" />
           <div className="text-wrapper">
-            <h1>OBRA SEM DOR DE CABEÇA</h1>
-            <p>
-              Obra com planejamento e acompanhamento diário, sem falta de
-              materiais, mão de obra qualificada e com entrega no prazo previsto.
-            </p>
+            <h1>Monitoramento 24h</h1>
+            <p>Controle total para uma execução sem imprevistos.</p>
           </div>
         </ItemCompromisso>
 
         <ItemCompromisso>
-          <img src={iconeMapa} alt="Mapa" />
+          <img src={iconePremio} alt="Mapa" />
           <div className="text-wrapper">
-            <h1>AMPLA COBERTURA PARA TE ATENDER</h1>
-            <p>
-              Alcance em todas as cidades da região, desde Araçatuba/SP até Três
-              Lagoas/SP.
-            </p>
+            <h1>60 Obras entregues em toda a região!</h1>
+            <p>Histórico que comprova qualidade.</p>
           </div>
         </ItemCompromisso>
       </WrapperItens>

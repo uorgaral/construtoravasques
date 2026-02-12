@@ -42,7 +42,7 @@ const LogoImg = styled.img`
 `;
 
 const NavLinkS = styled(Link)`
-  font-family: "Bakbak One", sans-serif;
+  font-family: "CHANEY", sans-serif;
   font-size: 20px;
   color: #F7F7F7;
   text-decoration: none;
@@ -117,7 +117,7 @@ const DropdownBotaoS = styled(Dropdown.Toggle)`
 `;
 
 const DropdownItemS = styled(Dropdown.Item)`
-  font-family: "Bakbak One", sans-serif;
+  font-family: "CHANEY", sans-serif;
   font-size: 20px;
   color: #9F111B;
   text-shadow: 5px 4px -4px rgba(0, 0, 0, 0.20);
