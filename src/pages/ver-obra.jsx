@@ -4,61 +4,88 @@ import supabase from "../utils/supabase_client";
 import { Spinner } from "react-bootstrap";
 import styled from "styled-components";
 
-const GaleriaImagens = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-    gap: 20px;
-    width: 100%;
-    margin-top: 10px;
+/* ================= HERO (1 imagem) ================= */
 
-    /* Container da imagem para manter a proporção */
-    .img-container {
-        width: 100%;
-        aspect-ratio: 1 / 1; /* Quadrado, ou 4/3 para retangular */
-        background-color: #f0f0f0; /* Fundo cinza para imagens com proporções diferentes */
-        border-radius: 12px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
+const HeroImagem = styled.div`
+    width: 100%;
+    max-width: 900px;
+    height: 520px;
+    margin-top: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
 
     img {
         width: 100%;
-        height: auto; 
-        object-fit: contain; 
-        transition: transform 0.3s ease;
-        border-radius: 8px;
-        display: block;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    &:hover img {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px){
+        height: 350px;
+    }
+`;
+
+/* ================= GALERIA (2+ imagens) ================= */
+
+const GaleriaGrid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    width: 100%;
+    margin-top: 30px;
+
+    .img-container {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .img-container:hover img {
+        transform: scale(1.06);
     }
 
     @media (max-width: 768px) {
         grid-template-columns: repeat(1, 1fr);
     }
 `;
+
+/* ================= ESTRUTURA ================= */
+
 const ContentSide = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-    max-width: 800px; 
-    margin: 0 auto; 
+    max-width: 900px;
+    margin: 0 auto;
     width: 100%;
+    align-items: center;
 `;
 
 const CustomCard = styled.div`
     display: flex;
-    flex-direction: column; /* Mudado para column para acomodar melhor a galeria abaixo do título */
+    flex-direction: column;
     width: 100%;
     max-width: 1100px;
     background: white;
     border-radius: 20px;
-    padding: 40px; /* Padding interno em vez de overflow hidden */
+    padding: 40px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     margin-top: 80px;
-    height: auto; /* Deixa o conteúdo definir a altura */
-    min-height: 500px;
 `;
 
 const FullPageWrapper = styled.div`
@@ -66,7 +93,7 @@ const FullPageWrapper = styled.div`
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinha no topo para permitir scroll */
+    align-items: flex-start;
     padding: 40px 20px;
     background-color: #818181;
 `;
@@ -95,7 +122,6 @@ const Titulo = styled.h2`
 
   @media (max-width: 768px){
     font-size: 25px;
-    word-wrap: break-word;
     line-height: 1.2;
   }
 `;
@@ -109,8 +135,6 @@ const Tag = styled.span`
     font-size: 12px;
     text-transform: uppercase;
     margin-bottom: 20px;
-    display: inline-block;
-    width: fit-content;
 `;
 
 const BackBtn = styled.button`
@@ -121,21 +145,17 @@ const BackBtn = styled.button`
     border-radius: 5px;
     color: #666;
     font-weight: bold;
-    width: fit-content;
+    margin-top: 30px;
     transition: 0.3s;
-    margin-top: 15px;
 
     &:hover {
         background: #6D070E;
         color: white;
         border-color: #6D070E;
     }
-
-    @media(max-width: 768px){
-        font-size: 15px;
-        padding: 5px 10px;
-    }
 `;
+
+/* ================= COMPONENTE ================= */
 
 export default function VerObra() {
     const { id } = useParams();
@@ -145,36 +165,62 @@ export default function VerObra() {
 
     useEffect(() => {
         async function fetchObra() {
-            const { data } = await supabase.from("ListaObras").select("*").eq("id", id).single();
+            const { data } = await supabase
+                .from("ListaObras")
+                .select("*")
+                .eq("id", id)
+                .single();
+
             setObra(data);
             setLoading(false);
         }
+
         fetchObra();
     }, [id]);
 
-    if (loading) return <FullPageWrapper><Spinner animation="border" variant="danger" /></FullPageWrapper>;
-    if (!obra) return <FullPageWrapper>Obra não encontrada.</FullPageWrapper>;
+    if (loading)
+        return (
+            <FullPageWrapper>
+                <Spinner animation="border" variant="danger" />
+            </FullPageWrapper>
+        );
+
+    if (!obra)
+        return <FullPageWrapper>Obra não encontrada.</FullPageWrapper>;
+
+    const imagens = Array.isArray(obra.img_url)
+        ? obra.img_url
+        : [obra.img_url];
+
+    const imagemUnica = imagens.length === 1;
 
     return (
         <FullPageWrapper>
             <CustomCard>
                 <ContentSide>
-                    <Tag>{obra.categoria}</Tag>
                     <Titulo>{obra.titulo}</Titulo>
+                    <Tag>{obra.categoria}</Tag>
 
-                    <GaleriaImagens>
-                        {Array.isArray(obra.img_url) ? (
-                            obra.img_url.map((url, index) => (
-                                <div key={index}>
-                                    <img src={url} alt={`${obra.titulo} - ${index}`} />
+                    {imagemUnica ? (
+                        <HeroImagem>
+                            <img src={imagens[0]} alt={obra.titulo} />
+                        </HeroImagem>
+                    ) : (
+                        <GaleriaGrid>
+                            {imagens.map((url, index) => (
+                                <div key={index} className="img-container">
+                                    <img
+                                        src={url}
+                                        alt={`${obra.titulo} - ${index}`}
+                                    />
                                 </div>
-                            ))
-                        ) : (
-                                <img src={obra.img_url} alt={obra.titulo} />
-                        )}
-                    </GaleriaImagens>
-                    
-                    <BackBtn onClick={() => navigate(-1)}>← VOLTAR AO CATÁLOGO</BackBtn>
+                            ))}
+                        </GaleriaGrid>
+                    )}
+
+                    <BackBtn onClick={() => navigate(-1)}>
+                        ← VOLTAR AO CATÁLOGO
+                    </BackBtn>
                 </ContentSide>
             </CustomCard>
         </FullPageWrapper>
