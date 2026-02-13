@@ -1,9 +1,9 @@
 import { BrowserRouter } from 'react-router-dom'
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import AppRoutes from './routes'
 import Menu from './components/menu'
+import { Analytics } from '@vercel/analytics/react';
 
 
 //Fontes
@@ -16,6 +16,7 @@ export default function App(){
       <BrowserRouter>
         <Menu/>
         <AppRoutes/>
+        <Analytics />
       </BrowserRouter>
     </SpeedInsights>
   )
