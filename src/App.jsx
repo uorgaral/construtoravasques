@@ -12,13 +12,11 @@ import { Analytics } from '@vercel/analytics/react';
 
 export default function App(){
   return(
-    <SpeedInsights>
       <BrowserRouter>
         <Menu/>
         <AppRoutes/>
         <Analytics />
       </BrowserRouter>
-    </SpeedInsights>
   )
 }
 
